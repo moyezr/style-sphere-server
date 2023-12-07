@@ -1,0 +1,19 @@
+{
+  "kind": "singleType",
+  "collectionName": "shiprocket_tokens",
+  "info": {
+    "singularName": "shiprocket-token",
+    "pluralName": "shiprocket-tokens",
+    "displayName": "Shiprocket Token"
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "token": {
+      "type": "text",
+      "required": true
+    }
+  }
+}

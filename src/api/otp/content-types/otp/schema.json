@@ -1,0 +1,25 @@
+{
+  "kind": "collectionType",
+  "collectionName": "otps",
+  "info": {
+    "singularName": "otp",
+    "pluralName": "otps",
+    "displayName": "OTP",
+    "description": ""
+  },
+  "options": {
+    "draftAndPublish": true
+  },
+  "pluginOptions": {},
+  "attributes": {
+    "otp": {
+      "type": "text"
+    },
+    "phoneNumber": {
+      "type": "biginteger",
+      "required": true,
+      "max": "9999999999",
+      "unique": true
+    }
+  }
+}
