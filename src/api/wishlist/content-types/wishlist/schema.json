@@ -12,16 +12,14 @@
   },
   "pluginOptions": {},
   "attributes": {
-    "user": {
-      "type": "relation",
-      "relation": "oneToOne",
-      "target": "plugin::users-permissions.user",
-      "inversedBy": "wishlist"
-    },
     "products": {
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::product.product"
+    },
+    "email": {
+      "type": "email",
+      "required": true
     }
   }
 }

@@ -50,7 +50,7 @@
       "enum": [
         "TOPWEAR",
         "BOTTOMWEAR",
-        "ACCESSORIES"
+        "FOOTWEAR"
       ],
       "default": "TOPWEAR",
       "required": true

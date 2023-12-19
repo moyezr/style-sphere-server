@@ -659,12 +659,6 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'manyToOne',
       'plugin::users-permissions.role'
     >;
-    phoneNumber: Attribute.BigInteger &
-      Attribute.Required &
-      Attribute.Unique &
-      Attribute.SetMinMax<{
-        max: '9999999999';
-      }>;
     firstName: Attribute.String & Attribute.Required;
     lastName: Attribute.String;
     cart: Attribute.Relation<
@@ -672,17 +666,10 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'oneToOne',
       'api::cart.cart'
     >;
-    gender: Attribute.Enumeration<['MALE', 'FEMALE', 'OTHER']> &
-      Attribute.Required;
     orders: Attribute.Relation<
       'plugin::users-permissions.user',
       'oneToMany',
       'api::order.order'
-    >;
-    wishlist: Attribute.Relation<
-      'plugin::users-permissions.user',
-      'oneToOne',
-      'api::wishlist.wishlist'
     >;
     address: Attribute.JSON;
     optionalAddress: Attribute.JSON;
@@ -690,6 +677,11 @@ export interface PluginUsersPermissionsUser extends Schema.CollectionType {
       'plugin::users-permissions.user',
       'oneToMany',
       'api::review.review'
+    >;
+    wishlist: Attribute.Relation<
+      'plugin::users-permissions.user',
+      'oneToMany',
+      'api::product.product'
     >;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
@@ -761,7 +753,7 @@ export interface ApiCategoryCategory extends Schema.CollectionType {
       'api::product.product'
     >;
     slug: Attribute.UID<'api::category.category', 'name'> & Attribute.Required;
-    isUnder: Attribute.Enumeration<['TOPWEAR', 'BOTTOMWEAR', 'ACCESSORIES']> &
+    isUnder: Attribute.Enumeration<['TOPWEAR', 'BOTTOMWEAR', 'FOOTWEAR']> &
       Attribute.Required &
       Attribute.DefaultTo<'TOPWEAR'>;
     createdAt: Attribute.DateTime;
@@ -900,18 +892,19 @@ export interface ApiOrderOrder extends Schema.CollectionType {
       }>;
     email: Attribute.Email;
     products: Attribute.JSON & Attribute.Required;
-    awb_no: Attribute.String;
     user: Attribute.Relation<
       'api::order.order',
       'manyToOne',
       'plugin::users-permissions.user'
     >;
-    razorpay_payment_id: Attribute.String;
-    razorpay_order_id: Attribute.String;
-    razorpay_signature: Attribute.String;
     paymentMethod: Attribute.Enumeration<['online', 'cod']>;
     amount: Attribute.Integer & Attribute.Required;
     deliveryDate: Attribute.Date;
+    paymentId: Attribute.Text;
+    paymentStatus: Attribute.Enumeration<
+      ['paid', 'failed', 'cod', 'processing']
+    > &
+      Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
@@ -1151,16 +1144,12 @@ export interface ApiWishlistWishlist extends Schema.CollectionType {
     draftAndPublish: true;
   };
   attributes: {
-    user: Attribute.Relation<
-      'api::wishlist.wishlist',
-      'oneToOne',
-      'plugin::users-permissions.user'
-    >;
     products: Attribute.Relation<
       'api::wishlist.wishlist',
       'oneToMany',
       'api::product.product'
     >;
+    email: Attribute.Email & Attribute.Required;
     createdAt: Attribute.DateTime;
     updatedAt: Attribute.DateTime;
     publishedAt: Attribute.DateTime;
