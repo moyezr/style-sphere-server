@@ -101,6 +101,10 @@
       "type": "relation",
       "relation": "oneToMany",
       "target": "api::product.product"
+    },
+    "phoneNumber": {
+      "type": "biginteger",
+      "required": false
     }
   }
 }
